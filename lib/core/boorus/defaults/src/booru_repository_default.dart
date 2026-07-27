@@ -277,9 +277,9 @@ class PostGestureHandler {
     try {
       final configViewer = ref.readConfigViewer;
       final configAuth = ref.readConfigAuth;
-      final url = mediaUrlResolver(
-        configAuth,
-      ).resolveMediaUrl(post, configViewer);
+      final url = ref
+          .read(mediaUrlResolverProvider(configAuth))
+          .resolveMediaUrl(post, configViewer);
 
       final imageCacheManager = ref.read(defaultImageCacheManagerProvider);
       final cacheKey = imageCacheManager.generateCacheKey(url);

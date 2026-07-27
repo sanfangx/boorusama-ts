@@ -305,7 +305,7 @@ class PostGestureHandler {
 
       await Gal.putImage(cachedPath);
       if (context.mounted) {
-        showSuccessToast(context, context.t.post.action.saveToGallery);
+        showSuccessToast(context, context.t.post.action.save_to_gallery);
       }
     } catch (e) {
       if (context.mounted) {

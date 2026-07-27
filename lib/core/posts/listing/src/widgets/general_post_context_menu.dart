@@ -77,7 +77,7 @@ class GeneralPostContextMenu extends ConsumerWidget {
               },
             ),
             ContextMenuTile(
-              title: context.t.post.action.saveToGallery,
+              title: context.t.post.action.save_to_gallery,
               onTap: () {
                 ref
                     .read(booruRepoProvider(booruConfig))

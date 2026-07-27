@@ -47,7 +47,7 @@ const kDefaultFullviewActions = {
 String describeDefaultGestureAction(String? action, BuildContext context) =>
     switch (action) {
       kDownloadAction => context.t.download.download,
-      kSaveToGalleryAction => context.t.post.action.saveToGallery,
+      kSaveToGalleryAction => context.t.post.action.save_to_gallery,
       kShareAction => context.t.post.action.share,
       kToggleBookmarkAction => context.t.post.action.toggle_bookmark,
       kViewTagsAction => context.t.post.action.view_tags,
@@ -61,7 +61,7 @@ String describeDefaultGestureAction(String? action, BuildContext context) =>
 String describeImagePreviewQuickAction(String? action, BuildContext context) =>
     switch (action) {
       kDownloadAction => context.t.download.download,
-      kSaveToGalleryAction => context.t.post.action.saveToGallery,
+      kSaveToGalleryAction => context.t.post.action.save_to_gallery,
       kToggleBookmarkAction => context.t.post.action.bookmark,
       kViewArtistAction => context.t.post.action.view_artist,
       '' => context.t.post.action.none,

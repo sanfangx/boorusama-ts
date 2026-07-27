@@ -79,11 +79,13 @@ class GeneralPostContextMenu extends ConsumerWidget {
             ContextMenuTile(
               title: context.t.post.action.saveToGallery,
               onTap: () {
-                ref.read(booruRepoProvider(booruConfig))?.handlePostGesture(
-                  ref,
-                  'saveToGallery',
-                  post,
-                );
+                ref
+                    .read(booruRepoProvider(booruConfig))
+                    ?.handlePostGesture(
+                      ref,
+                      'saveToGallery',
+                      post,
+                    );
               },
             ),
             if (!isBookmarked)

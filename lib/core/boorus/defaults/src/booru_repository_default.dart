@@ -277,7 +277,9 @@ class PostGestureHandler {
     try {
       final configViewer = ref.readConfigViewer;
       final configAuth = ref.readConfigAuth;
-      final url = mediaUrlResolver(configAuth).resolveMediaUrl(post, configViewer);
+      final url = mediaUrlResolver(
+        configAuth,
+      ).resolveMediaUrl(post, configViewer);
 
       final imageCacheManager = ref.read(defaultImageCacheManagerProvider);
       final cacheKey = imageCacheManager.generateCacheKey(url);
@@ -285,17 +287,17 @@ class PostGestureHandler {
 
       if (cachedPath == null) {
         if (context.mounted) {
-          showToast(context, message: 'Image not fully loaded yet.');
+          showErrorToast(context, 'Image not fully loaded yet.');
         }
         return;
       }
-      
+
       final hasAccess = await Gal.hasAccess();
       if (!hasAccess) {
         final granted = await Gal.requestAccess();
         if (!granted) {
           if (context.mounted) {
-            showToast(context, message: 'Permission denied.');
+            showErrorToast(context, 'Permission denied.');
           }
           return;
         }
@@ -303,11 +305,11 @@ class PostGestureHandler {
 
       await Gal.putImage(cachedPath);
       if (context.mounted) {
-        showToast(context, message: context.t.post.action.saveToGallery);
+        showSuccessToast(context, context.t.post.action.saveToGallery);
       }
     } catch (e) {
       if (context.mounted) {
-        showErrorToast(context, title: 'Failed to save image', description: e.toString());
+        showErrorToast(context, 'Failed to save image: $e');
       }
     }
   }

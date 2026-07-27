@@ -18,6 +18,7 @@ const kViewTagsAction = 'viewTags';
 const kViewOriginalAction = 'viewOriginal';
 const kOpenSourceAction = 'openSource';
 const kStartSlideshowAction = 'startSlideshow';
+const kSaveToGalleryAction = 'saveToGallery';
 
 const kToggleFavoriteAction = 'toggleFavorite';
 const kUpvoteAction = 'upvote';
@@ -30,6 +31,7 @@ const kDefaultAction = 'default';
 const kDefaultGestureActions = {
   null,
   kDownloadAction,
+  kSaveToGalleryAction,
   kShareAction,
   kToggleBookmarkAction,
   kViewTagsAction,
@@ -45,6 +47,7 @@ const kDefaultFullviewActions = {
 String describeDefaultGestureAction(String? action, BuildContext context) =>
     switch (action) {
       kDownloadAction => context.t.download.download,
+      kSaveToGalleryAction => context.t.post.action.saveToGallery,
       kShareAction => context.t.post.action.share,
       kToggleBookmarkAction => context.t.post.action.toggle_bookmark,
       kViewTagsAction => context.t.post.action.view_tags,
@@ -58,6 +61,7 @@ String describeDefaultGestureAction(String? action, BuildContext context) =>
 String describeImagePreviewQuickAction(String? action, BuildContext context) =>
     switch (action) {
       kDownloadAction => context.t.download.download,
+      kSaveToGalleryAction => context.t.post.action.saveToGallery,
       kToggleBookmarkAction => context.t.post.action.bookmark,
       kViewArtistAction => context.t.post.action.view_artist,
       '' => context.t.post.action.none,
@@ -68,6 +72,7 @@ bool handleDefaultGestureAction(
   String? action, {
   required HapticFeedbackLevel hapticLevel,
   void Function()? onDownload,
+  void Function()? onSaveToGallery,
   void Function()? onShare,
   void Function()? onToggleBookmark,
   void Function()? onViewTags,
@@ -78,6 +83,8 @@ bool handleDefaultGestureAction(
   switch (action) {
     case kDownloadAction:
       onDownload?.call();
+    case kSaveToGalleryAction:
+      onSaveToGallery?.call();
     case kShareAction:
       onShare?.call();
     case kViewTagsAction:

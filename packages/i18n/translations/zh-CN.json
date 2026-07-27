@@ -164,7 +164,8 @@
       "edit": "编辑",
       "use_default": "使用默认",
       "toggle_bookmark": "切换书签",
-      "toggle_favorite": "切换收藏"
+      "toggle_favorite": "切换收藏",
+      "save_to_gallery": "保存到相册"
     },
     "statistics": {
       "stats_for_nerds": "极客统计",

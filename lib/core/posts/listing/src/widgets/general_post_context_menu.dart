@@ -76,18 +76,6 @@ class GeneralPostContextMenu extends ConsumerWidget {
                 downloadNotifier.download(post);
               },
             ),
-            ContextMenuTile(
-              title: context.t.post.action.save_to_gallery,
-              onTap: () {
-                ref
-                    .read(booruRepoProvider(booruConfig))
-                    ?.handlePostGesture(
-                      ref,
-                      'saveToGallery',
-                      post,
-                    );
-              },
-            ),
             if (!isBookmarked)
               ContextMenuTile(
                 title: context.t.post.detail.add_to_bookmark,

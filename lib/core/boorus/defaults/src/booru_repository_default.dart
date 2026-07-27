@@ -47,10 +47,6 @@ import '../../../tags/tag/providers.dart';
 import '../../../tags/tag/types.dart';
 import '../../../text_markup/types.dart';
 import '../../engine/types.dart';
-import 'package:gal/gal.dart';
-import 'package:cache_manager/cache_manager.dart';
-import '../../../../foundation/toast.dart';
-import 'package:i18n/i18n.dart';
 
 abstract class BooruRepositoryDefault implements BooruRepository {
   const BooruRepositoryDefault();
@@ -217,7 +213,6 @@ class PostGestureHandler {
       action,
       hapticLevel: ref.read(hapticFeedbackLevelProvider),
       onDownload: () => handleDownload(ref, post),
-      onSaveToGallery: () => handleSaveToGallery(ref, post),
       onShare: () => handleShare(ref, post),
       onToggleBookmark: () => handleBookmark(ref, post),
       onViewTags: () => handleViewTags(ref, post),
@@ -270,48 +265,6 @@ class PostGestureHandler {
           ),
           imageCacheManager: ref.read(defaultImageCacheManagerProvider),
         );
-  }
-
-  Future<void> handleSaveToGallery(WidgetRef ref, Post post) async {
-    final context = ref.context;
-    try {
-      final configViewer = ref.readConfigViewer;
-      final configAuth = ref.readConfigAuth;
-      final url = ref
-          .read(mediaUrlResolverProvider(configAuth))
-          .resolveMediaUrl(post, configViewer);
-
-      final imageCacheManager = ref.read(defaultImageCacheManagerProvider);
-      final cacheKey = imageCacheManager.generateCacheKey(url);
-      final cachedPath = await imageCacheManager.getCachedFilePath(cacheKey);
-
-      if (cachedPath == null) {
-        if (context.mounted) {
-          showErrorToast(context, 'Image not fully loaded yet.');
-        }
-        return;
-      }
-
-      final hasAccess = await Gal.hasAccess();
-      if (!hasAccess) {
-        final granted = await Gal.requestAccess();
-        if (!granted) {
-          if (context.mounted) {
-            showErrorToast(context, 'Permission denied.');
-          }
-          return;
-        }
-      }
-
-      await Gal.putImage(cachedPath);
-      if (context.mounted) {
-        showSuccessToast(context, context.t.post.action.save_to_gallery);
-      }
-    } catch (e) {
-      if (context.mounted) {
-        showErrorToast(context, 'Failed to save image: $e');
-      }
-    }
   }
 
   void handleBookmark(WidgetRef ref, Post post) {

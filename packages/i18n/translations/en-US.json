@@ -213,8 +213,7 @@
       "copy_post_id": "Copy post ID",
       "failed_to_get_image_url": "Failed to get image URL",
       "failed_to_get_image_bytes": "Failed to get image bytes",
-      "failed_to_copy_image": "Failed to copy image: $e",
-      "save_to_gallery": "Save to gallery"
+      "failed_to_copy_image": "Failed to copy image: $e"
     }
   },
   "comment": {
@@ -486,11 +485,11 @@
       "path": "Download path",
       "select_a_folder": "Select a folder",
       "quality": "Download image quality",
-      "skip_existing_files": "Skip existing files",
-      "skip_existing_files_explanation": "This will prevent downloading files that already exist in the folder. This is useful when you don't want to download the same file multiple times.",
+     "skip_existing_files": "Skip existing files",
+     "skip_existing_files_explanation": "This will prevent downloading files that already exist in the folder. This is useful when you don't want to download the same file multiple times.",
       "save_to_gallery": "Save to Photos",
       "save_to_gallery_explanation": "Automatically save downloaded images to the system photo gallery.",
-      "qualities": {
+     "qualities": {
         "original": "Original",
         "sample": "Sample",
         "large": "Large",

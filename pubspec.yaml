@@ -127,7 +127,6 @@ dependencies:
       ref: a4b5fb32b79ac61c98979d7f95ebef49af37297a
   rxdart: ^0.28.0
   scroll_to_index: ^3.0.1
-  share_handler: ^0.0.20
   share_plus: ^12.0.0
   shelf: ^1.4.1
   selection_mode: ^0.0.6

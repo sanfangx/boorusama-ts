@@ -27,14 +27,12 @@
 			containerPortal = 97C146E61CF9000F007C117D /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = D2EDBA412A99AC390057D9AF;
-			remoteInfo = ShareExtension;
 		};
 		D2EDBA4A2A99AC390057D9AF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 97C146E61CF9000F007C117D /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = D2EDBA412A99AC390057D9AF;
-			remoteInfo = ShareExtension;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -55,7 +53,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				D2EDBA4C2A99AC390057D9AF /* ShareExtension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -119,7 +116,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F9A39DDA6599AA545FA1B4E7 /* Pods_ShareExtension.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -142,7 +138,6 @@
 			children = (
 				9740EEB11CF90186004384FC /* Flutter */,
 				97C146F01CF9000F007C117D /* Runner */,
-				D2EDBA432A99AC390057D9AF /* ShareExtension */,
 				97C146EF1CF9000F007C117D /* Products */,
 				EDA1DD3E6AD0745BDA3E1E98 /* Pods */,
 				CEF23080B2B91BC62393D0E0 /* Frameworks */,
@@ -153,7 +148,6 @@
 			isa = PBXGroup;
 			children = (
 				97C146EE1CF9000F007C117D /* Boorusama.app */,
-				D2EDBA422A99AC390057D9AF /* ShareExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -179,20 +173,8 @@
 			children = (
 				D280D26428AF3C620080EB7B /* libsqlite3.tbd */,
 				5A06DCC749A2DA47C1533AC7 /* Pods_Runner.framework */,
-				D6AAF57C9BF38EC835CEB5BA /* Pods_ShareExtension.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		D2EDBA432A99AC390057D9AF /* ShareExtension */ = {
-			isa = PBXGroup;
-			children = (
-				D2EDBA532A99ADB10057D9AF /* ShareExtensionProfile.entitlements */,
-				D2EDBA442A99AC390057D9AF /* ShareViewController.swift */,
-				D2EDBA462A99AC390057D9AF /* MainInterface.storyboard */,
-				D2EDBA492A99AC390057D9AF /* Info.plist */,
-			);
-			path = ShareExtension;
 			sourceTree = "<group>";
 		};
 		EDA1DD3E6AD0745BDA3E1E98 /* Pods */ = {
@@ -207,15 +189,6 @@
 				07124BF9F021A07E3F4BF114 /* Pods-Runner.profile.xcconfig */,
 				F2F313E516C475DE1AF09220 /* Pods-Runner.profile-prod.xcconfig */,
 				4DE3C7AF2C6B115107D2F4EB /* Pods-Runner.profile-dev.xcconfig */,
-				78F57966F7028AA2EA23224A /* Pods-ShareExtension.debug.xcconfig */,
-				F5D2347ADC1665BDC916686B /* Pods-ShareExtension.debug-prod.xcconfig */,
-				93EF5C9FA4ADAC1EB982BC71 /* Pods-ShareExtension.debug-dev.xcconfig */,
-				A56307F1433697B3181CCB4E /* Pods-ShareExtension.release.xcconfig */,
-				33B4A76AFB6DF25768505132 /* Pods-ShareExtension.release-prod.xcconfig */,
-				27F5F0C6404BC696EE347AC8 /* Pods-ShareExtension.release-dev.xcconfig */,
-				9C218FED43DF3112495314D3 /* Pods-ShareExtension.profile.xcconfig */,
-				F177BC16A1C83AE32D6A7159 /* Pods-ShareExtension.profile-prod.xcconfig */,
-				A6488FFA3BB7196BDE947B02 /* Pods-ShareExtension.profile-dev.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -248,24 +221,6 @@
 			productName = Runner;
 			productReference = 97C146EE1CF9000F007C117D /* Boorusama.app */;
 			productType = "com.apple.product-type.application";
-		};
-		D2EDBA412A99AC390057D9AF /* ShareExtension */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = D2EDBA512A99AC390057D9AF /* Build configuration list for PBXNativeTarget "ShareExtension" */;
-			buildPhases = (
-				C4DDBCED6C9E70308BAAA241 /* [CP] Check Pods Manifest.lock */,
-				D2EDBA3E2A99AC390057D9AF /* Sources */,
-				D2EDBA3F2A99AC390057D9AF /* Frameworks */,
-				D2EDBA402A99AC390057D9AF /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = ShareExtension;
-			productName = ShareExtension;
-			productReference = D2EDBA422A99AC390057D9AF /* ShareExtension.appex */;
-			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -300,7 +255,6 @@
 			projectRoot = "";
 			targets = (
 				97C146ED1CF9000F007C117D /* Runner */,
-				D2EDBA412A99AC390057D9AF /* ShareExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -430,7 +384,6 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-ShareExtension-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -462,12 +415,10 @@
 /* Begin PBXTargetDependency section */
 		D247A3C52B2E173400094AA2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = D2EDBA412A99AC390057D9AF /* ShareExtension */;
 			targetProxy = D247A3C42B2E173400094AA2 /* PBXContainerItemProxy */;
 		};
 		D2EDBA4B2A99AC390057D9AF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = D2EDBA412A99AC390057D9AF /* ShareExtension */;
 			targetProxy = D2EDBA4A2A99AC390057D9AF /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -675,7 +626,6 @@
 		};
 		2986A1DD2D6893C70022A301 /* Debug-prod */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F5D2347ADC1665BDC916686B /* Pods-ShareExtension.debug-prod.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -688,8 +638,6 @@
 				DEVELOPMENT_TEAM = 2YGRTXCBJ5;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ShareExtension/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = ShareExtension;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -700,7 +648,6 @@
 				MARKETING_VERSION = 1.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.degenk.boorusama.ShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -797,7 +744,6 @@
 		};
 		2986A1E02D6893D40022A301 /* Release-prod */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 33B4A76AFB6DF25768505132 /* Pods-ShareExtension.release-prod.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -810,8 +756,6 @@
 				DEVELOPMENT_TEAM = 2YGRTXCBJ5;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ShareExtension/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = ShareExtension;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -821,7 +765,6 @@
 				);
 				MARKETING_VERSION = 1.0;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.degenk.boorusama.ShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -918,7 +861,6 @@
 		};
 		2986A1E32D6893DE0022A301 /* Profile-prod */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F177BC16A1C83AE32D6A7159 /* Pods-ShareExtension.profile-prod.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -926,14 +868,11 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtensionProfile.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2YGRTXCBJ5;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ShareExtension/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = ShareExtension;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -943,7 +882,6 @@
 				);
 				MARKETING_VERSION = 1.0;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.degenk.boorusama.ShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -1218,7 +1156,6 @@
 		};
 		D247A3BD2B2E0DF400094AA2 /* Debug-dev */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 93EF5C9FA4ADAC1EB982BC71 /* Pods-ShareExtension.debug-dev.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -1231,8 +1168,6 @@
 				DEVELOPMENT_TEAM = 2YGRTXCBJ5;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ShareExtension/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = ShareExtension;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1243,7 +1178,6 @@
 				MARKETING_VERSION = 1.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.degenk.boorusama.dev.ShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -1340,7 +1274,6 @@
 		};
 		D247A3C02B2E0DFC00094AA2 /* Release-dev */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 27F5F0C6404BC696EE347AC8 /* Pods-ShareExtension.release-dev.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -1353,8 +1286,6 @@
 				DEVELOPMENT_TEAM = 2YGRTXCBJ5;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ShareExtension/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = ShareExtension;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1364,7 +1295,6 @@
 				);
 				MARKETING_VERSION = 1.0;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.degenk.boorusama.dev.ShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -1461,7 +1391,6 @@
 		};
 		D247A3C32B2E0E0200094AA2 /* Profile-dev */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A6488FFA3BB7196BDE947B02 /* Pods-ShareExtension.profile-dev.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -1469,14 +1398,11 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtensionProfile.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2YGRTXCBJ5;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ShareExtension/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = ShareExtension;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1486,7 +1412,6 @@
 				);
 				MARKETING_VERSION = 1.0;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.degenk.boorusama.dev.ShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -1499,7 +1424,6 @@
 		};
 		D2EDBA4E2A99AC390057D9AF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 78F57966F7028AA2EA23224A /* Pods-ShareExtension.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -1512,8 +1436,6 @@
 				DEVELOPMENT_TEAM = 2YGRTXCBJ5;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ShareExtension/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = ShareExtension;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1524,7 +1446,6 @@
 				MARKETING_VERSION = 1.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.degenk.boorusama.ShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -1537,7 +1458,6 @@
 		};
 		D2EDBA4F2A99AC390057D9AF /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A56307F1433697B3181CCB4E /* Pods-ShareExtension.release.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -1550,8 +1470,6 @@
 				DEVELOPMENT_TEAM = 2YGRTXCBJ5;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ShareExtension/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = ShareExtension;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1561,7 +1479,6 @@
 				);
 				MARKETING_VERSION = 1.0;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.degenk.boorusama.ShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -1574,7 +1491,6 @@
 		};
 		D2EDBA502A99AC390057D9AF /* Profile */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9C218FED43DF3112495314D3 /* Pods-ShareExtension.profile.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -1582,14 +1498,11 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtensionProfile.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2YGRTXCBJ5;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ShareExtension/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = ShareExtension;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1599,7 +1512,6 @@
 				);
 				MARKETING_VERSION = 1.0;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.degenk.boorusama.ShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -1641,22 +1553,6 @@
 				249021D4217E4FDB00AE95B9 /* Profile */,
 				2986A1E22D6893DE0022A301 /* Profile-prod */,
 				D247A3C22B2E0E0200094AA2 /* Profile-dev */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		D2EDBA512A99AC390057D9AF /* Build configuration list for PBXNativeTarget "ShareExtension" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				D2EDBA4E2A99AC390057D9AF /* Debug */,
-				2986A1DD2D6893C70022A301 /* Debug-prod */,
-				D247A3BD2B2E0DF400094AA2 /* Debug-dev */,
-				D2EDBA4F2A99AC390057D9AF /* Release */,
-				2986A1E02D6893D40022A301 /* Release-prod */,
-				D247A3C02B2E0DFC00094AA2 /* Release-dev */,
-				D2EDBA502A99AC390057D9AF /* Profile */,
-				2986A1E32D6893DE0022A301 /* Profile-prod */,
-				D247A3C32B2E0E0200094AA2 /* Profile-dev */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

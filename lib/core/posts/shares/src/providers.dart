@@ -11,7 +11,9 @@ import 'package:share_plus/share_plus.dart';
 import '../../../../foundation/filesystem.dart';
 import '../../../configs/config/types.dart';
 import '../../../downloads/filename/types.dart';
+import '../../details/providers.dart';
 import '../../post/types.dart';
+import 'share.dart';
 
 final shareProvider = Provider.autoDispose((ref) => ShareService(ref));
 
@@ -35,14 +37,12 @@ class ShareService {
       rect = box.localToGlobal(Offset.zero) & box.size;
     }
 
-    final imageData = configViewer.quality == PostImageQuality.sample
-        ? post.sampleImageUrl
-        : post.previewImageUrl;
+    final mediaUrlResolver = ref.read(mediaUrlResolverProvider(config));
+    final imageUrl = mediaUrlResolver.resolveMediaUrl(post, configViewer);
 
-    if (imageData == null) return;
+    if (imageUrl == null) return;
 
-    final imageUrl = imageData.url.toString();
-    final imageExt = post.extension;
+    final imageExt = post.format;
 
     final ext = urlExtension(imageUrl);
     final effectiveExt = ext.isNotEmpty ? ext : imageExt;

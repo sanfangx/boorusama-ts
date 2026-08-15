@@ -22,25 +22,4 @@ import flutter_local_notifications
 
     GeneratedPluginRegistrant.register(with: engineBridge.pluginRegistry)
   }
-  var backgroundTask: UIBackgroundTaskIdentifier = .invalid
-
-  override func applicationDidEnterBackground(_ application: UIApplication) {
-    super.applicationDidEnterBackground(application)
-    
-    backgroundTask = application.beginBackgroundTask(withName: "BoorusamaSafetyBuffer") { [weak self] in
-      self?.endBackgroundTask(application)
-    }
-    
-    // Give Flutter 5 seconds to finish file/database operations before suspending
-    DispatchQueue.global().asyncAfter(deadline: .now() + 5.0) { [weak self] in
-      self?.endBackgroundTask(application)
-    }
-  }
-
-  private func endBackgroundTask(_ application: UIApplication) {
-    if backgroundTask != .invalid {
-      application.endBackgroundTask(backgroundTask)
-      backgroundTask = .invalid
-    }
-  }
 }

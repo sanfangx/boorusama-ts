@@ -38,15 +38,14 @@ class _DownloadPageState extends ConsumerState<DownloadPage> {
     return SettingsPageScaffold(
       title: Text(context.t.settings.download.title),
       children: [
-        if (!isIOS())
           DownloadSettingsInteractionBlocker(
-          child: DownloadFolderSelectorSection(
-            storagePath: settings.downloadPath,
-            onPathChanged: (path) =>
-                notifer.updateSettings(settings.copyWith(downloadPath: path)),
-            deviceInfo: ref.watch(deviceInfoProvider),
+            child: DownloadFolderSelectorSection(
+              storagePath: settings.downloadPath,
+              onPathChanged: (path) =>
+                  notifer.updateSettings(settings.copyWith(downloadPath: path)),
+              deviceInfo: ref.watch(deviceInfoProvider),
+            ),
           ),
-        ),
         const SizedBox(height: 12),
         SettingsTile(
           title: Text(context.t.settings.download.quality),
@@ -67,7 +66,6 @@ class _DownloadPageState extends ConsumerState<DownloadPage> {
           },
         ),
        const SizedBox(height: 4),
-        if (!isIOS())
           Column(children: [
             ListTile(
               title: Text(context.t.settings.download.save_to_gallery),

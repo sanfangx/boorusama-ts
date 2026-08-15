@@ -97,9 +97,18 @@ class PostModalShare extends ConsumerWidget {
                 title: Text(context.t.post.detail.share.source),
                 subtitle: Text(s.uri.toString()),
                 leading: ConfigAwareWebsiteLogo(url: s.url),
-                onTap: () {
+                onTap: () async {
+                  final box = context.findRenderObject() as RenderBox?;
+                  Rect? rect;
+                  if (box != null && box.hasSize) {
+                    rect = box.localToGlobal(Offset.zero) & box.size;
+                  }
                   Navigator.of(context).pop();
-                  SharePlus.instance.share(ShareParams(uri: s.uri));
+                  await Future.delayed(const Duration(milliseconds: 300));
+                  SharePlus.instance.share(ShareParams(
+                    uri: s.uri,
+                    sharePositionOrigin: rect,
+                  ));
                 },
               ),
               _ => const SizedBox.shrink(),
@@ -110,12 +119,19 @@ class PostModalShare extends ConsumerWidget {
                   title: Text(context.t.post.detail.share.booru),
                   subtitle: Text(booruLink),
                   leading: ConfigAwareWebsiteLogo(url: booruLink),
-                  onTap: () {
+                  onTap: () async {
+                    final box = context.findRenderObject() as RenderBox?;
+                    Rect? rect;
+                    if (box != null && box.hasSize) {
+                      rect = box.localToGlobal(Offset.zero) & box.size;
+                    }
                     Navigator.of(context).pop();
+                    await Future.delayed(const Duration(milliseconds: 300));
                     SharePlus.instance.share(
                       ShareParams(
                         uri: uri,
                         subject: booruLink,
+                        sharePositionOrigin: rect,
                       ),
                     );
                   },
@@ -135,13 +151,20 @@ class PostModalShare extends ConsumerWidget {
                               'Image quality will depend on the current selected booru profile.'
                                   .hc,
                             ),
-                            onTap: () {
+                            onTap: () async {
+                              final box = context.findRenderObject() as RenderBox?;
+                              Rect? rect;
+                              if (box != null && box.hasSize) {
+                                rect = box.localToGlobal(Offset.zero) & box.size;
+                              }
                               Navigator.of(context).pop();
+                              await Future.delayed(const Duration(milliseconds: 300));
 
                               SharePlus.instance.share(
                                 ShareParams(
                                   files: [file],
                                   subject: file.name,
+                                  sharePositionOrigin: rect,
                                 ),
                               );
                             },

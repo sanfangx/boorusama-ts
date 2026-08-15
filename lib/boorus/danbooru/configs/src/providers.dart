@@ -31,7 +31,7 @@ class DanbooruLoginDetails implements BooruLoginDetails {
   }
 
   @override
-  bool get hasStrictSFW => url == kDanbooruSafeUrl && isIOS();
+  bool get hasStrictSFW => false;
 
   @override
   bool get hasSoftSFW => url == kDanbooruSafeUrl;

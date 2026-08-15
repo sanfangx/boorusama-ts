@@ -220,8 +220,8 @@ Future<DownloadTaskInfo?> _download(
       bypassDdosHeadersProvider(urlData.url).future,
     );
 
-    // On iOS, save directly to Photos instead of downloading to filesystem
-    if (isIOS()) {
+    // On iOS, save directly to Photos if saveToGallery is enabled
+    if (isIOS() && params.settings.saveToGallery) {
       try {
         onStarted?.call();
 
@@ -283,7 +283,8 @@ Future<DownloadTaskInfo?> _download(
           await Gal.putImage(tempPath);
         }
 
-        try { await tempDir.delete(recursive: true); } catch (_) {}
+        // We DO NOT delete tempDir here because the share feature might need tempPath
+        // The OS will automatically clean up the system temp directory later.
 
         updates.addOrUpdate(
           TaskStatusUpdate(task, TaskStatus.complete),

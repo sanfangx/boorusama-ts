@@ -3,14 +3,15 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:cache_manager/cache_manager.dart';
+import 'package:coreutils/coreutils.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:share_plus/share_plus.dart';
 
 // Project imports:
-import '../../../../foundation/display.dart';
+import '../../../../foundation/filesystem.dart';
 import '../../../configs/config/types.dart';
 import '../../../downloads/filename/types.dart';
 import '../../post/types.dart';
-import 'post_modal_share.dart';
 
 final shareProvider = Provider.autoDispose((ref) => ShareService(ref));
 
@@ -19,7 +20,7 @@ class ShareService {
 
   final Ref ref;
 
-  void sharePost(
+  Future<void> sharePost(
     Post post,
     BooruConfigAuth config, {
     required BuildContext context,
@@ -27,31 +28,49 @@ class ShareService {
     required BooruConfigDownload download,
     required DownloadFilenameGenerator? filenameBuilder,
     required ImageCacheManager imageCacheManager,
-  }) {
-    final modal = PostModalShare(
-      post: post,
-      auth: config,
-      viewer: configViewer,
-      download: download,
-      filenameBuilder: filenameBuilder,
-      imageCacheManager: imageCacheManager,
-    );
+  }) async {
+    final box = context.findRenderObject() as RenderBox?;
+    Rect? rect;
+    if (box != null && box.hasSize) {
+      rect = box.localToGlobal(Offset.zero) & box.size;
+    }
 
-    const routeSettings = RouteSettings(name: 'post_share');
+    final imageData = configViewer.quality == PostImageQuality.sample
+        ? post.sampleImageUrl
+        : post.previewImageUrl;
 
-    Screen.of(context).size == ScreenSize.small
-        ? showModalBottomSheet(
-            context: context,
-            routeSettings: routeSettings,
-            builder: (context) => modal,
-          )
-        : showDialog(
-            context: context,
-            routeSettings: routeSettings,
-            builder: (context) => AlertDialog(
-              contentPadding: EdgeInsets.zero,
-              content: modal,
-            ),
-          );
+    if (imageData == null) return;
+
+    final imageUrl = imageData.url.toString();
+    final imageExt = post.extension;
+
+    final ext = urlExtension(imageUrl);
+    final effectiveExt = ext.isNotEmpty ? ext : imageExt;
+
+    final cacheKey = imageCacheManager.generateCacheKey(imageUrl);
+    final filePath = await imageCacheManager.getCachedFilePath(cacheKey);
+
+    if (filePath == null || effectiveExt == null) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Please wait for the image to load before sharing')),
+        );
+      }
+      return;
+    }
+
+    final newPath = filePath + effectiveExt;
+    final fs = ref.read(appFileSystemProvider);
+    final file = fileCopySync(fs, filePath, newPath);
+
+    if (file != null) {
+      SharePlus.instance.share(
+        ShareParams(
+          files: [file],
+          subject: file.name,
+          sharePositionOrigin: rect,
+        ),
+      );
+    }
   }
 }

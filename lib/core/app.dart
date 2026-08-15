@@ -8,6 +8,7 @@ import 'package:i18n/i18n.dart';
 import 'package:oktoast/oktoast.dart';
 
 // Project imports:
+import '../foundation/database/lifecycle.dart';
 import '../foundation/info/app_info.dart';
 import '../foundation/networking.dart';
 import '../foundation/platform.dart';
@@ -27,10 +28,12 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const OKToast(
-      child: AnalyticsScope(
-        child: AutoBackupAppLifecycle(
-          child: NetworkListener(
-            child: _App(),
+      child: DatabaseLifecycleManager(
+        child: AnalyticsScope(
+          child: AutoBackupAppLifecycle(
+            child: NetworkListener(
+              child: _App(),
+            ),
           ),
         ),
       ),

@@ -1,17 +1,34 @@
 import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:sqlite3/sqlite3.dart';
+import 'package:boorusama/core/tags/autocompletes/tag_translation_repo.dart';
 import 'package:boorusama/core/tags/autocompletes/translation.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  group('TagTranslation', () {
-    test('loads assets and translates tags correctly', () async {
-      await TagTranslation.init();
+  late Database db;
+  late TagTranslationRepository repo;
 
-      print('First 20 keys: ${TagTranslation.translations.keys.take(20).toList()}');
-      print('Contains 1girl: ${TagTranslation.translations.containsKey('1girl')}');
-      print('Value for 1girl: ${TagTranslation.translations['1girl']}');
+  setUp(() {
+    // Use in-memory SQLite for tests
+    db = sqlite3.openInMemory();
+    repo = TagTranslationRepository(db: db)..initialize();
+
+    // Import from the actual CSV file
+    final csvData = File('assets/danbooru-10w-zh_cn.csv').readAsStringSync();
+    repo.importFromCsv(csvData);
+
+    TagTranslation.setRepository(repo);
+  });
+
+  tearDown(() {
+    db.dispose();
+  });
+
+  group('TagTranslation', () {
+    test('loads assets and translates tags correctly', () {
+      print('Value for 1girl: ${TagTranslation.translate('1girl')}');
       print('Value for solo: ${TagTranslation.translate('solo')}');
       print('Value for highres: ${TagTranslation.translate('highres')}');
 
@@ -21,9 +38,17 @@ void main() {
       expect(TagTranslation.translate('highres'), '高分辨率');
     });
 
-    test('searchLocal matches English with relevance sorting', () async {
-      await TagTranslation.init();
+    test('translates with underscore/space normalization', () {
+      // Tags stored as underscored should be found with spaces and vice versa
+      expect(TagTranslation.translate('long_hair'), isNotNull);
+      expect(TagTranslation.translate('long hair'), isNotNull);
+      expect(
+        TagTranslation.translate('long_hair'),
+        TagTranslation.translate('long hair'),
+      );
+    });
 
+    test('searchLocal matches English with relevance sorting', () {
       final matches = TagTranslation.searchLocal('cat');
       expect(matches.isNotEmpty, true);
 
@@ -43,6 +68,28 @@ void main() {
       if (applicationIndex != -1 && catIndex != -1) {
         expect(catIndex < applicationIndex, true);
       }
+    });
+
+    test('searchLocal matches Chinese queries', () {
+      final matches = TagTranslation.searchLocal('单人');
+      expect(matches.isNotEmpty, true);
+      expect(matches.any((e) => e.value == 'solo'), true);
+    });
+
+    test('searchLocal supports pagination', () {
+      final page1 = TagTranslation.searchLocal('girl', limit: 5);
+      final page2 = TagTranslation.searchLocal('girl', skip: 5, limit: 5);
+
+      expect(page1.length, 5);
+      expect(page2.isNotEmpty, true);
+      // Pages should not overlap
+      final page1Values = page1.map((e) => e.value).toSet();
+      final page2Values = page2.map((e) => e.value).toSet();
+      expect(page1Values.intersection(page2Values).isEmpty, true);
+    });
+
+    test('translate returns null for unknown tags', () {
+      expect(TagTranslation.translate('zzznonexistent_tag_12345'), isNull);
     });
   });
 }

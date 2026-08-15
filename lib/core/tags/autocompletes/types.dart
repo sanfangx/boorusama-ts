@@ -6,7 +6,6 @@ import 'package:foundation/foundation.dart';
 import '../local/types.dart';
 import '../metatag/types.dart';
 import '../tag/types.dart';
-import 'translation.dart';
 
 export 'autocomplete_repository.dart';
 export 'autocomplete_query.dart';

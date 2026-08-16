@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:material_symbols_icons/symbols.dart';
 
 // Project imports:
+import '../../../autocompletes/translation.dart';
 import '../providers/favorite_tags_notifier.dart';
 import '../types/favorite_tag.dart';
 import '../widgets/favorite_tag_add_tag_to_label_button.dart';
@@ -39,7 +40,28 @@ class FavoriteTagLabelDetailsPage extends ConsumerWidget {
 
           return ListTile(
             contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-            title: Text(tag.name),
+            title: Builder(
+              builder: (context) {
+                final translation = TagTranslation.translate(tag.name);
+                if (translation != null) {
+                  return Text.rich(
+                    TextSpan(
+                      text: tag.name,
+                      children: [
+                        TextSpan(
+                          text: ' • $translation',
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.onSurfaceVariant,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                }
+                return Text(tag.name);
+              },
+            ),
             trailing: IconButton(
               onPressed: () {
                 ref

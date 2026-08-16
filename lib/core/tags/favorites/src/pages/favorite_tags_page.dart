@@ -13,6 +13,7 @@ import '../../../../../core/widgets/widgets.dart';
 import '../../../../../foundation/toast.dart';
 import '../../../../search/search/routes.dart';
 import '../../../../search/search/widgets.dart';
+import '../../../autocompletes/translation.dart';
 import '../providers/favorite_tags_notifier.dart';
 import '../providers/local_providers.dart';
 import '../types/favorite_tag.dart';
@@ -177,7 +178,28 @@ class FavoriteTagsPage extends ConsumerWidget {
         final labels = tag.labels ?? <String>[];
 
         return ListTile(
-          title: Text(tag.name),
+          title: Builder(
+            builder: (context) {
+              final translation = TagTranslation.translate(tag.name);
+              if (translation != null) {
+                return Text.rich(
+                  TextSpan(
+                    text: tag.name,
+                    children: [
+                      TextSpan(
+                        text: ' • $translation',
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              }
+              return Text(tag.name);
+            },
+          ),
           contentPadding: const EdgeInsets.only(
             left: 16,
             right: 4,

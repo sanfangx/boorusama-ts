@@ -2,7 +2,7 @@
 import 'package:context_menus/context_menus.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:i18n/i18n.dart';
-import 'package:kurumi/material.dart';
+import 'package:flutter/material.dart';
 
 // Project imports:
 import '../../../../../foundation/clipboard.dart';

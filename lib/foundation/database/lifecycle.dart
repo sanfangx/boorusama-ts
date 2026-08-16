@@ -37,7 +37,7 @@ class _DatabaseLifecycleManagerState extends State<DatabaseLifecycleManager> {
     if (state == AppLifecycleState.inactive) {
       // Checkpoint all WAL databases to flush pending writes
       // and release file locks before iOS suspends us.
-      checkpointAllDatabases();
+      // checkpointAllDatabases(); // Temporarily disabled to test if this causes the background crash
     }
   }
 

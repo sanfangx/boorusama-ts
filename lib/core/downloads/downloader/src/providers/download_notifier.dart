@@ -226,9 +226,6 @@ Future<DownloadTaskInfo?> _download(
         onStarted?.call();
 
         final context = navigatorKey.currentState?.context;
-        if (context != null && context.mounted) {
-          showDownloadStartToast(context, message: 'Saving to Photos...');
-        }
 
         final dio = ref.read(dioForWidgetProvider(params.auth));
         final taskId = 'gal_${DateTime.now().millisecondsSinceEpoch}';
@@ -294,7 +291,7 @@ Future<DownloadTaskInfo?> _download(
           showToast(
             'Saved to Photos',
             context: context,
-            position: const ToastPosition(align: Alignment.bottomCenter),
+            position: const ToastPosition(align: Alignment.topCenter),
             backgroundColor: Colors.green,
           );
         }
@@ -413,7 +410,7 @@ void showDownloadStartToast(BuildContext context, {String? message}) {
     message ?? context.t.download.notification.started,
     context: context,
     position: const ToastPosition(
-      align: Alignment.bottomCenter,
+      align: Alignment.topCenter,
     ),
     textPadding: const EdgeInsets.all(12),
     textStyle: TextStyle(color: Theme.of(context).colorScheme.surface),

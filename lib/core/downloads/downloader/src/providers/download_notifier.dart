@@ -227,14 +227,7 @@ Future<DownloadTaskInfo?> _download(
 
         final context = navigatorKey.currentState?.context;
         if (context != null && context.mounted) {
-          showToast(
-            'Saving to Photos...',
-            context: context,
-            position: const ToastPosition(align: Alignment.topCenter),
-            textPadding: const EdgeInsets.all(12),
-            textStyle: TextStyle(color: Theme.of(context).colorScheme.surface),
-            backgroundColor: Theme.of(context).colorScheme.onSurface,
-          );
+          showDownloadStartToast(context, message: 'Saving to Photos...');
         }
 
         final dio = ref.read(dioForWidgetProvider(params.auth));
@@ -301,7 +294,7 @@ Future<DownloadTaskInfo?> _download(
           showToast(
             'Saved to Photos',
             context: context,
-            position: const ToastPosition(align: Alignment.topCenter),
+            position: const ToastPosition(align: Alignment.bottomCenter),
             backgroundColor: Colors.green,
           );
         }

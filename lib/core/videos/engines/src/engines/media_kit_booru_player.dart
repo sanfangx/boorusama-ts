@@ -15,15 +15,6 @@ import '../types/video_source.dart';
 import 'media_kit_manager.dart';
 
 class MediaKitBooruPlayer implements BooruPlayer {
-  static final Set<MediaKitBooruPlayer> _activePlayers = {};
-
-  static void pauseAll() {
-    for (final player in _activePlayers) {
-      if (!player._isDisposed && player._isInitialized) {
-        player.pause();
-      }
-    }
-  }
   MediaKitBooruPlayer({
     required this.wakelock,
     this.enableHardwareAcceleration = true,
@@ -121,7 +112,6 @@ class MediaKitBooruPlayer implements BooruPlayer {
     await _openMedia(source, config);
 
     _isInitialized = true;
-    _activePlayers.add(this);
   }
 
   @override
@@ -271,7 +261,6 @@ class MediaKitBooruPlayer implements BooruPlayer {
   void dispose() {
     if (_isDisposed) return;
     _isDisposed = true;
-    _activePlayers.remove(this);
 
     wakelock.disable();
 

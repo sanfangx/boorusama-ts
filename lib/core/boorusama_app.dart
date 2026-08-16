@@ -51,7 +51,6 @@ import 'settings/types.dart';
 import 'tags/configs/providers.dart';
 import 'tags/autocompletes/tag_translation_repo.dart';
 import 'tags/autocompletes/translation.dart';
-import 'videos/engines/src/engines/media_kit_booru_player.dart';
 import 'widgets/widgets.dart';
 import 'window/providers.dart' as window;
 
@@ -79,7 +78,7 @@ class BoorusamaApp extends StatefulWidget {
   State<BoorusamaApp> createState() => _BoorusamaAppState();
 }
 
-class _BoorusamaAppState extends State<BoorusamaApp> with WidgetsBindingObserver {
+class _BoorusamaAppState extends State<BoorusamaApp> {
   late final Future<_InitResult> _initFuture;
   Future<DeviceInfo>? _errorDeviceInfoFuture;
   AppLogger? _appLogger;
@@ -87,26 +86,7 @@ class _BoorusamaAppState extends State<BoorusamaApp> with WidgetsBindingObserver
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addObserver(this);
     _initFuture = _initialize();
-  }
-
-  @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    super.dispose();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.inactive || state == AppLifecycleState.paused) {
-      MediaKitBooruPlayer.pauseAll();
-    }
-  }
-
-  @override
-  void didHaveMemoryPressure() {
-    super.didHaveMemoryPressure();
   }
 
   Future<_InitResult> _initialize() async {

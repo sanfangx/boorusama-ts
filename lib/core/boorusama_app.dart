@@ -101,16 +101,12 @@ class _BoorusamaAppState extends State<BoorusamaApp> with WidgetsBindingObserver
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.inactive || state == AppLifecycleState.paused) {
       MediaKitBooruPlayer.pauseAll();
-      PaintingBinding.instance.imageCache.clear();
-      PaintingBinding.instance.imageCache.clearLiveImages();
     }
   }
 
   @override
   void didHaveMemoryPressure() {
     super.didHaveMemoryPressure();
-    PaintingBinding.instance.imageCache.clear();
-    PaintingBinding.instance.imageCache.clearLiveImages();
   }
 
   Future<_InitResult> _initialize() async {

@@ -74,5 +74,5 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: boorusama-ipa
-          path: ${{ env.OUTPUT_DIR }}/**
+          path: ${{ env.OUTPUT_DIR }}/*ios*.ipa
           if-no-files-found: error

@@ -7,6 +7,7 @@ import 'dart:io';
 
 // Flutter imports:
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 
 // Package imports:
 import 'package:path/path.dart' as p;
@@ -20,7 +21,21 @@ const _kAppTemporaryDirectoryName = String.fromEnvironment('APP_NAME');
 class IoFileSystem implements AppFileSystem {
   const IoFileSystem();
 
+  static const MethodChannel _channel = MethodChannel('com.degenk.boorusama/filesystem');
+
   // Path resolution
+
+  @override
+  Future<void> excludeFromBackup(String path) async {
+    if (kIsWeb) return;
+    if (defaultTargetPlatform == TargetPlatform.iOS) {
+      try {
+        await _channel.invokeMethod('excludeFromBackup', {'path': path});
+      } catch (e) {
+        debugPrint('Failed to exclude from backup: $e');
+      }
+    }
+  }
 
   @override
   Future<String> getAppStoragePath() async {

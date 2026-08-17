@@ -107,7 +107,7 @@ class _BoorusamaAppState extends State<BoorusamaApp> {
 
       logger.debugBoot("Load database's directory");
       final dbDirectoryPath = await fs.getAppStoragePath();
-
+      await fs.excludeFromBackup(dbDirectoryPath);
       logger.debugBoot('Initialize Hive');
       Hive
         ..init(dbDirectoryPath)

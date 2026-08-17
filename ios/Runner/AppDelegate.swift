@@ -12,6 +12,32 @@ import flutter_local_notifications
       UNUserNotificationCenter.current().delegate = self as UNUserNotificationCenterDelegate
     }
 
+    if let controller = window?.rootViewController as? FlutterViewController {
+      let fileSystemChannel = FlutterMethodChannel(name: "com.degenk.boorusama/filesystem",
+                                                   binaryMessenger: controller.binaryMessenger)
+      fileSystemChannel.setMethodCallHandler({
+        (call: FlutterMethodCall, result: @escaping FlutterResult) -> Void in
+        if call.method == "excludeFromBackup" {
+          guard let args = call.arguments as? [String: Any],
+                let path = args["path"] as? String else {
+            result(FlutterError(code: "INVALID_ARGUMENTS", message: "Path is required", details: nil))
+            return
+          }
+          var url = URL(fileURLWithPath: path)
+          var resourceValues = URLResourceValues()
+          resourceValues.isExcludedFromBackup = true
+          do {
+            try url.setResourceValues(resourceValues)
+            result(true)
+          } catch {
+            result(FlutterError(code: "UNAVAILABLE", message: "Failed to exclude from backup", details: error.localizedDescription))
+          }
+        } else {
+          result(FlutterMethodNotImplemented)
+        }
+      })
+    }
+
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
 

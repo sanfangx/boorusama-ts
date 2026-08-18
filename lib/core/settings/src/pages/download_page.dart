@@ -80,8 +80,8 @@ class _DownloadPageState extends ConsumerState<DownloadPage> {
             ),
             const SizedBox(height: 4),
           ]),
-       ListTile(
-         title: Text(context.t.settings.download.skip_existing_files),
+        ListTile(
+          title: Text(context.t.settings.download.skip_existing_files),
           subtitle: Text(
             context.t.settings.download.skip_existing_files_explanation,
           ),
@@ -96,6 +96,28 @@ class _DownloadPageState extends ConsumerState<DownloadPage> {
                 ),
               );
             },
+          ),
+        ),
+        const SizedBox(height: 4),
+        ListTile(
+          title: const Text('Auto-favorite on download'),
+          subtitle: const Text('Automatically favorite the post when it is downloaded'),
+          trailing: Switch(
+            value: settings.autoFavoriteOnDownload,
+            onChanged: (value) => notifer.updateSettings(
+              settings.copyWith(autoFavoriteOnDownload: value),
+            ),
+          ),
+        ),
+        const SizedBox(height: 4),
+        ListTile(
+          title: const Text('Auto-bookmark on download'),
+          subtitle: const Text('Automatically bookmark the post when it is downloaded'),
+          trailing: Switch(
+            value: settings.autoBookmarkOnDownload,
+            onChanged: (value) => notifer.updateSettings(
+              settings.copyWith(autoBookmarkOnDownload: value),
+            ),
           ),
         ),
         const BooruConfigMoreSettingsRedirectCard.download(),

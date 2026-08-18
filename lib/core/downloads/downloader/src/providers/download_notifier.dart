@@ -26,6 +26,8 @@ import '../../../../download_manager/providers.dart';
 import '../../../../posts/post/types.dart';
 import '../../../../router.dart';
 import '../../../../settings/types.dart';
+import '../../../../bookmarks/providers.dart';
+import '../../../../posts/favorites/providers.dart';
 import '../../../filename/types.dart';
 import '../../../urls/types.dart';
 import '../types/download.dart';
@@ -94,6 +96,14 @@ class DownloadNotifier extends FamilyNotifier<void, DownloadNotifierParams> {
           showDownloadStartToast(c);
         }
 
+        if (arg.settings.autoFavoriteOnDownload) {
+          ref.read(favoritesProvider(arg.auth).notifier).add(post.id);
+        }
+
+        if (arg.settings.autoBookmarkOnDownload) {
+          ref.read(bookmarkProvider.notifier).addBookmark(arg.auth, post);
+        }
+
         observer?.onSingleDownloadStart();
       },
     );
@@ -136,6 +146,14 @@ class DownloadNotifier extends FamilyNotifier<void, DownloadNotifierParams> {
         bulkMetadata: {
           'total': posts.length.toString(),
           'index': i.toString(),
+        },
+        onStarted: () {
+          if (arg.settings.autoFavoriteOnDownload) {
+            ref.read(favoritesProvider(arg.auth).notifier).add(post.id);
+          }
+          if (arg.settings.autoBookmarkOnDownload) {
+            ref.read(bookmarkProvider.notifier).addBookmark(arg.auth, post);
+          }
         },
       );
     }

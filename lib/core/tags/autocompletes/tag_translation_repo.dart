@@ -148,6 +148,7 @@ class TagTranslationRepository with DatabaseUtilsMixin {
       '''
       SELECT en FROM tag_translations
       WHERE zh LIKE ?
+      ORDER BY id ASC
       LIMIT ? OFFSET ?
       ''',
       ['%$query%', limit, skip],
@@ -175,29 +176,29 @@ class TagTranslationRepository with DatabaseUtilsMixin {
     // Bucket C: substring match (lowest relevance, requires 3+ chars)
     final sql = query.length > 2
         ? r'''
-      SELECT en, 0 as rank FROM tag_translations
+      SELECT en, id, 0 as rank FROM tag_translations
         WHERE LOWER(en) LIKE ? ESCAPE '\'
       UNION ALL
-      SELECT en, 1 as rank FROM tag_translations
+      SELECT en, id, 1 as rank FROM tag_translations
         WHERE (LOWER(en) LIKE ? ESCAPE '\' OR LOWER(en) LIKE ? ESCAPE '\')
         AND LOWER(en) NOT LIKE ? ESCAPE '\'
       UNION ALL
-      SELECT en, 2 as rank FROM tag_translations
+      SELECT en, id, 2 as rank FROM tag_translations
         WHERE LOWER(en) LIKE ? ESCAPE '\'
         AND LOWER(en) NOT LIKE ? ESCAPE '\'
         AND LOWER(en) NOT LIKE ? ESCAPE '\'
         AND LOWER(en) NOT LIKE ? ESCAPE '\'
-      ORDER BY rank, en
+      ORDER BY rank, id ASC
       LIMIT ? OFFSET ?
       '''
         : r'''
-      SELECT en, 0 as rank FROM tag_translations
+      SELECT en, id, 0 as rank FROM tag_translations
         WHERE LOWER(en) LIKE ? ESCAPE '\'
       UNION ALL
-      SELECT en, 1 as rank FROM tag_translations
+      SELECT en, id, 1 as rank FROM tag_translations
         WHERE (LOWER(en) LIKE ? ESCAPE '\' OR LOWER(en) LIKE ? ESCAPE '\')
         AND LOWER(en) NOT LIKE ? ESCAPE '\'
-      ORDER BY rank, en
+      ORDER BY rank, id ASC
       LIMIT ? OFFSET ?
       ''';
 

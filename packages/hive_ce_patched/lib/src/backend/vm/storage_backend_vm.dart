@@ -112,6 +112,9 @@ class StorageBackendVm extends StorageBackend {
     lockRaf.writeStringSync(jsonEncode(LockProps(isolated: isolated)));
     lockRaf.flushSync();
     // await lockRaf.lock(); // REMOVED to fix 0xDEAD10CC on iOS (TrollStore)
+    // TROLLSTORE FIX: We MUST close the lock file immediately. Keeping it open 
+    // in FileMode.write triggers 0xDEAD10CC on iOS when the app suspends!
+    await lockRaf.close();
 
     int recoveryOffset;
     if (!lazy) {
@@ -270,7 +273,11 @@ class StorageBackendVm extends StorageBackend {
     await readRaf.close();
     await writeRaf.close();
 
-    await lockRaf.close();
+    try {
+      await lockRaf.close();
+    } catch (_) {
+      // Ignored: Closed immediately on open to fix TrollStore iOS issue
+    }
     await _lockFile.delete();
   }
 

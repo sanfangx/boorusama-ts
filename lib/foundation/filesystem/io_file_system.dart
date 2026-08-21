@@ -45,6 +45,36 @@ class IoFileSystem implements AppFileSystem {
         ? await getApplicationDocumentsDirectory()
         : await getApplicationSupportDirectory();
 
+    if (defaultTargetPlatform == TargetPlatform.iOS) {
+      final noBackupDir = Directory(p.join(dir.path, 'NoBackup'));
+      if (!noBackupDir.existsSync()) {
+        noBackupDir.createSync(recursive: true);
+        
+        // Migrate existing files to prevent data loss
+        try {
+          final files = dir.listSync();
+          for (final entity in files) {
+            final name = p.basename(entity.path);
+            if (name == 'NoBackup') continue;
+            
+            if (entity is File && (name.endsWith('.hive') || name.endsWith('.lock') || name.endsWith('.hivec'))) {
+              entity.copySync(p.join(noBackupDir.path, name));
+              entity.deleteSync();
+            } else if (entity is Directory && name == 'data') {
+              // The sqlite folder
+              entity.renameSync(p.join(noBackupDir.path, name));
+            }
+          }
+        } catch (e) {
+          debugPrint('Migration error: $e');
+        }
+      }
+      
+      // Ensure it is excluded from backup
+      await excludeFromBackup(noBackupDir.path);
+      return noBackupDir.path;
+    }
+
     return dir.path;
   }
 

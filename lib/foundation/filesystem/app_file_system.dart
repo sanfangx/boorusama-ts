@@ -7,7 +7,6 @@ abstract interface class AppFileSystem {
   Future<String> getAppStoragePath();
   Future<String?> getTemporaryPath();
   Future<String?> getDownloadPath();
-  Future<void> excludeFromBackup(String path);
 
   // File operations
   Future<bool> fileExists(String path);

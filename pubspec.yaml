@@ -177,7 +177,3 @@ flutter:
     - assets/ca/isrgrootx1.pem
     - assets/danbooru-10w-zh_cn.csv
     - CHANGELOG.md
-
-dependency_overrides:
-  hive_ce:
-    path: packages/hive_ce_patched

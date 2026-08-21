@@ -7,7 +7,6 @@ import 'dart:io';
 
 // Flutter imports:
 import 'package:flutter/foundation.dart';
-import 'package:flutter/services.dart';
 
 // Package imports:
 import 'package:path/path.dart' as p;
@@ -21,21 +20,7 @@ const _kAppTemporaryDirectoryName = String.fromEnvironment('APP_NAME');
 class IoFileSystem implements AppFileSystem {
   const IoFileSystem();
 
-  static const MethodChannel _channel = MethodChannel('com.degenk.boorusama/filesystem');
-
   // Path resolution
-
-  @override
-  Future<void> excludeFromBackup(String path) async {
-    if (kIsWeb) return;
-    if (defaultTargetPlatform == TargetPlatform.iOS) {
-      try {
-        await _channel.invokeMethod('excludeFromBackup', {'path': path});
-      } catch (e) {
-        debugPrint('Failed to exclude from backup: $e');
-      }
-    }
-  }
 
   @override
   Future<String> getAppStoragePath() async {
@@ -44,87 +29,6 @@ class IoFileSystem implements AppFileSystem {
     final dir = defaultTargetPlatform == TargetPlatform.android
         ? await getApplicationDocumentsDirectory()
         : await getApplicationSupportDirectory();
-
-    if (defaultTargetPlatform == TargetPlatform.iOS) {
-      // 1. Try TrollStore sandbox-escape path
-      final trollStoreDir = Directory('/var/mobile/Documents/BoorusamaData');
-      bool hasTrollStorePrivilege = false;
-      
-      try {
-        if (!trollStoreDir.existsSync()) {
-          trollStoreDir.createSync(recursive: true);
-        }
-        final testFile = File(p.join(trollStoreDir.path, '.test_write'));
-        testFile.writeAsStringSync('test');
-        testFile.deleteSync();
-        hasTrollStorePrivilege = true;
-      } catch (e) {
-        hasTrollStorePrivilege = false;
-      }
-
-      if (hasTrollStorePrivilege) {
-        // Migrate from both NoBackup and root Application Support if needed
-        final sources = [Directory(p.join(dir.path, 'NoBackup')), dir];
-        
-        for (final sourceDir in sources) {
-          if (!sourceDir.existsSync()) continue;
-          try {
-            final files = sourceDir.listSync();
-            for (final entity in files) {
-              final name = p.basename(entity.path);
-              if (name == 'NoBackup' || name == 'BoorusamaData') continue;
-              
-              if (entity is File && (name.endsWith('.hive') || name.endsWith('.lock') || name.endsWith('.hivec'))) {
-                final dest = p.join(trollStoreDir.path, name);
-                if (!File(dest).existsSync()) {
-                  entity.copySync(dest);
-                  entity.deleteSync();
-                }
-              } else if (entity is Directory && name == 'data') {
-                final dest = p.join(trollStoreDir.path, name);
-                if (!Directory(dest).existsSync()) {
-                  try {
-                    entity.renameSync(dest);
-                  } catch (_) {}
-                }
-              }
-            }
-          } catch (e) {
-            debugPrint('TrollStore migration error: $e');
-          }
-        }
-        return trollStoreDir.path;
-      }
-
-      // 2. Fallback to NoBackup logic for standard App Store/Sandboxed users
-      final noBackupDir = Directory(p.join(dir.path, 'NoBackup'));
-      if (!noBackupDir.existsSync()) {
-        noBackupDir.createSync(recursive: true);
-        
-        // Migrate existing files to prevent data loss
-        try {
-          final files = dir.listSync();
-          for (final entity in files) {
-            final name = p.basename(entity.path);
-            if (name == 'NoBackup') continue;
-            
-            if (entity is File && (name.endsWith('.hive') || name.endsWith('.lock') || name.endsWith('.hivec'))) {
-              entity.copySync(p.join(noBackupDir.path, name));
-              entity.deleteSync();
-            } else if (entity is Directory && name == 'data') {
-              // The sqlite folder
-              entity.renameSync(p.join(noBackupDir.path, name));
-            }
-          }
-        } catch (e) {
-          debugPrint('Migration error: $e');
-        }
-      }
-      
-      // Ensure it is excluded from backup
-      await excludeFromBackup(noBackupDir.path);
-      return noBackupDir.path;
-    }
 
     return dir.path;
   }

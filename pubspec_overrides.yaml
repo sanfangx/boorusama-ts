@@ -1,4 +1,4 @@
-﻿dependency_overrides:
+dependency_overrides:
   cronet_http: ^1.7.0
   flutter_riverpod:
     git:
@@ -10,5 +10,3 @@
       url: https://github.com/khoadng/riverpod.git
       path: packages/riverpod
       ref: 5a513c5aeee5a91d7cf5aa9a6e6a414b822bdee9
-  hive_ce:
-    path: packages/hive_ce_patched

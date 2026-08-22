@@ -6,6 +6,8 @@ import 'package:scroll_to_index/scroll_to_index.dart';
 import '../../../../configs/config/types.dart';
 import '../../../post/types.dart';
 
+import '../../../../search/selected_tags/types.dart';
+
 class DetailsRouteContext<T extends Post> extends Equatable {
   const DetailsRouteContext({
     required this.initialIndex,
@@ -15,6 +17,7 @@ class DetailsRouteContext<T extends Post> extends Equatable {
     required this.hero,
     required this.initialThumbnailUrl,
     required this.configSearch,
+    this.searchTags,
     this.dislclaimer,
   });
 
@@ -32,6 +35,7 @@ class DetailsRouteContext<T extends Post> extends Equatable {
       initialThumbnailUrl: initialThumbnailUrl,
       dislclaimer: dislclaimer,
       configSearch: configSearch,
+      searchTags: searchTags,
     );
   }
 
@@ -43,6 +47,7 @@ class DetailsRouteContext<T extends Post> extends Equatable {
   final String? initialThumbnailUrl;
   final String? dislclaimer;
   final BooruConfigSearch? configSearch;
+  final SearchTagSet? searchTags;
 
   @override
   List<Object?> get props => [
@@ -53,5 +58,7 @@ class DetailsRouteContext<T extends Post> extends Equatable {
     hero,
     initialThumbnailUrl,
     dislclaimer,
+    configSearch,
+    searchTags,
   ];
 }

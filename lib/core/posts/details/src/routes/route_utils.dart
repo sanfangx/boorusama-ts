@@ -6,6 +6,8 @@ import 'package:scroll_to_index/scroll_to_index.dart';
 import '../../../../../foundation/display.dart';
 import '../../../../configs/config/types.dart';
 import '../../../../router.dart';
+import '../../../../search/selected_tags/providers.dart';
+import '../../../../search/selected_tags/types.dart';
 import '../../../listing/providers.dart';
 import '../../../post/types.dart';
 import 'details_route_context.dart';
@@ -23,6 +25,7 @@ void goToPostDetailsPageFromPosts<T extends Post>({
   scrollController: scrollController,
   initialThumbnailUrl: initialThumbnailUrl,
   hero: false,
+  searchTags: ref.read(activeSearchTagsProvider),
 );
 
 void goToPostDetailsPageFromController<T extends Post>({
@@ -38,6 +41,7 @@ void goToPostDetailsPageFromController<T extends Post>({
   scrollController: scrollController,
   initialThumbnailUrl: initialThumbnailUrl,
   hero: true,
+  searchTags: ref.read(activeSearchTagsProvider),
 );
 
 void goToPostDetailsPageCore<T extends Post>({
@@ -47,6 +51,7 @@ void goToPostDetailsPageCore<T extends Post>({
   required bool hero,
   required String? initialThumbnailUrl,
   AutoScrollController? scrollController,
+  SearchTagSet? searchTags,
 }) {
   ref.router.push(
     Uri(
@@ -60,6 +65,7 @@ void goToPostDetailsPageCore<T extends Post>({
       hero: hero,
       initialThumbnailUrl: initialThumbnailUrl,
       configSearch: null,
+      searchTags: searchTags,
     ),
   );
 }

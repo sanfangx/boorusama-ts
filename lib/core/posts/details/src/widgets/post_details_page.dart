@@ -64,6 +64,12 @@ class InheritedDetailsContext<T extends Post> extends InheritedWidget {
         (throw Exception('No InheritedDetailsContext found in context'));
   }
 
+  static DetailsRouteContext<T>? maybeOf<T extends Post>(BuildContext context) {
+    final widget = context
+        .dependOnInheritedWidgetOfExactType<InheritedDetailsContext<T>>();
+    return widget?.context;
+  }
+
   @override
   bool updateShouldNotify(InheritedDetailsContext<T> oldWidget) {
     return context != oldWidget.context;

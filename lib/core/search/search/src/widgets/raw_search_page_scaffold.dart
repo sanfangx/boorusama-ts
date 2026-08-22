@@ -250,6 +250,10 @@ class _SearchPageScaffoldState<T extends Post>
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(activeSearchTagsProvider.notifier).state = _tagsController.tagSet;
+    });
+
     final colorScheme = Theme.of(context).colorScheme;
 
     return CustomContextMenuOverlay(

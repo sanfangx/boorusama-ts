@@ -1024,6 +1024,8 @@
       "add_to_blacklist": "เพิ่มเป็นคำต้องห้ามแสดง",
       "search": "ค้นหาแท็ก",
       "search_single": "ค้นหา",
+      "add_to_search": "Add to search",
+      "exclude_from_search": "Exclude from search",
       "copy": "คัดลอกแท็ก",
       "copy_single": "คัดลอก",
       "blacklist": "แท็กต้องห้าม",

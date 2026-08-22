@@ -1167,6 +1167,8 @@
     "actions": {
       "search": "Tìm tag",
       "search_single": "Tìm",
+      "add_to_search": "Add to search",
+      "exclude_from_search": "Exclude from search",
       "copy": "Sao chép tag",
       "copy_single": "Sao chép",
       "blacklist": "Chặn tag",

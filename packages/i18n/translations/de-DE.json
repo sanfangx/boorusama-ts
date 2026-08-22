@@ -930,6 +930,8 @@
       "add_to_blacklist": "Zu Ausgeblendeten Tags hinzufügen",
       "search": "Tags suchen",
       "search_single": "Suchen",
+      "add_to_search": "Add to search",
+      "exclude_from_search": "Exclude from search",
       "copy": "Tags kopieren",
       "copy_single": "Kopieren",
       "blacklist": "Blacklist",

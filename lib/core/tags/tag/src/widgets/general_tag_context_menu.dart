@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import '../../../../../foundation/clipboard.dart';
 import '../../../../blacklists/providers.dart';
 import '../../../../search/search/routes.dart';
+import '../../../../search/selected_tags/types.dart';
 import '../../../favorites/providers.dart';
 
 class GeneralTagContextMenu extends ConsumerWidget
@@ -32,6 +33,8 @@ class GeneralTagContextMenu extends ConsumerWidget
         buttonConfigs: [
           copyButton(context, tag),
           searchButton(ref, tag),
+          addToSearchButton(context, ref, tag),
+          excludeFromSearchButton(context, ref, tag),
           ContextMenuButtonConfig(
             context.t.post.detail.add_to_favorites,
             onPressed: () {
@@ -74,6 +77,28 @@ mixin TagContextMenuButtonConfigMixin {
         ref.context.t.tags.actions.search_single,
         onPressed: () {
           goToSearchPage(ref, tag: tag);
+        },
+      );
+
+  ContextMenuButtonConfig addToSearchButton(BuildContext context, WidgetRef ref, String tag) =>
+      ContextMenuButtonConfig(
+        context.t.tags.actions.add_to_search,
+        onPressed: () {
+          final lastParams = ref.read(lastSearchParamsProvider);
+          final currentTags = lastParams?.tags?.clone() ?? SearchTagSet();
+          currentTags.addTag(TagSearchItem.raw(tag: tag));
+          goToSearchPage(ref, tags: currentTags);
+        },
+      );
+
+  ContextMenuButtonConfig excludeFromSearchButton(BuildContext context, WidgetRef ref, String tag) =>
+      ContextMenuButtonConfig(
+        context.t.tags.actions.exclude_from_search,
+        onPressed: () {
+          final lastParams = ref.read(lastSearchParamsProvider);
+          final currentTags = lastParams?.tags?.clone() ?? SearchTagSet();
+          currentTags.addTag(TagSearchItem.fromString('-$tag'));
+          goToSearchPage(ref, tags: currentTags);
         },
       );
 }

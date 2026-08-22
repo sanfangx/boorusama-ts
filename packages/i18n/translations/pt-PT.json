@@ -1205,6 +1205,8 @@
     "actions": {
       "search": "Procurar Etiquetas",
       "search_single": "Procurar",
+      "add_to_search": "Add to search",
+      "exclude_from_search": "Exclude from search",
       "copy": "Copiar Etiquetas",
       "copy_single": "Copiar",
       "blacklist": "Lista Negra",

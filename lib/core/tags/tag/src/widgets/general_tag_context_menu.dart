@@ -86,6 +86,9 @@ mixin TagContextMenuButtonConfigMixin {
         onPressed: () {
           final lastParams = ref.read(lastSearchParamsProvider);
           final currentTags = lastParams?.tags?.clone() ?? SearchTagSet();
+          if (lastParams?.query != null && lastParams!.query!.isNotEmpty) {
+            currentTags.merge(SearchTagSet.fromString(lastParams.query));
+          }
           currentTags.addTag(TagSearchItem.raw(tag: tag));
           goToSearchPage(ref, tags: currentTags);
         },
@@ -97,6 +100,9 @@ mixin TagContextMenuButtonConfigMixin {
         onPressed: () {
           final lastParams = ref.read(lastSearchParamsProvider);
           final currentTags = lastParams?.tags?.clone() ?? SearchTagSet();
+          if (lastParams?.query != null && lastParams!.query!.isNotEmpty) {
+            currentTags.merge(SearchTagSet.fromString(lastParams.query));
+          }
           currentTags.addTag(TagSearchItem.fromString('-$tag'));
           goToSearchPage(ref, tags: currentTags);
         },

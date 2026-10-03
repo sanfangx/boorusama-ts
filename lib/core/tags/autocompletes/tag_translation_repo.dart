@@ -39,12 +39,27 @@ class TagTranslationRepository with DatabaseUtilsMixin {
       ''');
   }
 
+  /// Current dataset version. Bump when the bundled CSV dataset updates
+  /// so existing installations automatically re-import the newer translations.
+  static const currentVersion = 2;
+
   /// Returns true if the translations table is empty (needs import).
   bool get isEmpty {
     final result = db.select(
       'SELECT COUNT(*) as c FROM tag_translations',
     );
     return (result.first['c'] as int) == 0;
+  }
+
+  /// Returns true if the translations table is empty or outdated (needs import).
+  bool get needsImport {
+    return isEmpty || db.userVersion < currentVersion;
+  }
+
+  /// Clears existing translations and imports fresh data from CSV.
+  void clearAndImportFromCsv(String csvData) {
+    db.execute('DELETE FROM tag_translations');
+    importFromCsv(csvData);
   }
 
   /// Bulk-import translations from CSV data.
@@ -71,6 +86,7 @@ class TagTranslationRepository with DatabaseUtilsMixin {
         }
       }
       db.execute('COMMIT');
+      db.userVersion = currentVersion;
     } catch (e) {
       db.execute('ROLLBACK');
       rethrow;

@@ -23,7 +23,7 @@ void main() {
   });
 
   tearDown(() {
-    db.dispose();
+    db.close();
   });
 
   group('TagTranslation', () {
@@ -33,7 +33,7 @@ void main() {
       print('Value for highres: ${TagTranslation.translate('highres')}');
 
       // Basic tags translation checks
-      expect(TagTranslation.translate('1girl'), '1个女孩');
+      expect(TagTranslation.translate('1girl'), '单人女性');
       expect(TagTranslation.translate('solo'), '单人');
       expect(TagTranslation.translate('highres'), '高分辨率');
     });
@@ -55,14 +55,16 @@ void main() {
       // Matches starting with "cat" (Bucket A) or word boundary (Bucket B) should rank first
       final firstMatchEn = matches.first.value.toLowerCase();
       expect(
-        firstMatchEn.startsWith('cat') || 
-        firstMatchEn.contains('_cat') || 
-        firstMatchEn.contains(' cat'),
+        firstMatchEn.startsWith('cat') ||
+            firstMatchEn.contains('_cat') ||
+            firstMatchEn.contains(' cat'),
         true,
       );
 
       // Verify that substring matches like "application" do not rank higher than prefix matches
-      final applicationIndex = matches.indexWhere((e) => e.value == 'application');
+      final applicationIndex = matches.indexWhere(
+        (e) => e.value == 'application',
+      );
       final catIndex = matches.indexWhere((e) => e.value == 'cat');
 
       if (applicationIndex != -1 && catIndex != -1) {
@@ -91,5 +93,29 @@ void main() {
     test('translate returns null for unknown tags', () {
       expect(TagTranslation.translate('zzznonexistent_tag_12345'), isNull);
     });
+
+    test(
+      'needsImport returns false after successful import with current version',
+      () {
+        expect(repo.needsImport, false);
+        expect(db.userVersion, TagTranslationRepository.currentVersion);
+      },
+    );
+
+    test(
+      'needsImport detects outdated database version and updates correctly',
+      () {
+        // Simulate an older database version (version 0 or 1)
+        db.userVersion = 0;
+        expect(repo.needsImport, true);
+
+        // Clear and re-import
+        repo.clearAndImportFromCsv('test_tag,测试标签\n1girl,单人女性');
+        expect(repo.needsImport, false);
+        expect(db.userVersion, TagTranslationRepository.currentVersion);
+        expect(repo.translate('test_tag'), '测试标签');
+        expect(repo.translate('1girl'), '单人女性');
+      },
+    );
   });
 }

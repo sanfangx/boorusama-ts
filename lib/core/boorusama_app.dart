@@ -192,10 +192,10 @@ class _BoorusamaAppState extends State<BoorusamaApp> {
       if (tagTransDb != null) {
         final tagTransRepo = TagTranslationRepository(db: tagTransDb)
           ..initialize();
-        if (tagTransRepo.isEmpty) {
-          logger.debugBoot('First launch: importing tag translations from CSV');
+        if (tagTransRepo.needsImport) {
+          logger.debugBoot('Importing tag translations from CSV');
           final csvData = await TagTranslation.loadCsvData();
-          tagTransRepo.importFromCsv(csvData);
+          tagTransRepo.clearAndImportFromCsv(csvData);
           logger.debugBoot('Tag translations imported successfully');
         }
         TagTranslation.setRepository(tagTransRepo);
